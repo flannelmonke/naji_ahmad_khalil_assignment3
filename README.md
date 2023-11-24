@@ -4,7 +4,7 @@
 This assignment was provided by Dr. Muhammmad Shafique from Sheridan College, apart of the PROG32758 Enterprise Java Development class at the Davis Campus.
 
 ## System Requirements
-This is a quick summary of the system requirements provided in the Assignment3 PDF file provided by the instructor. To read that PDF file click [here](https://www.github.com/flannelmonke/naji_ahmad_khalil_assignment3/Assignment3.pdf](https://github.com/flannelmonke/naji_ahmad_khalil_assignment3/blob/main/Assignment3.pdf)
+This is a quick summary of the system requirements provided in the Assignment3 PDF file provided by the instructor. To read that PDF file click [here](https://github.com/flannelmonke/naji_ahmad_khalil_assignment3/blob/main/Assignment3.pdf)
  ### Functionality
   - *Add*
   - *Edit*
