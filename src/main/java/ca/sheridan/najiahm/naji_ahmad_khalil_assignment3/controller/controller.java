@@ -52,7 +52,7 @@ public class controller {
     public String delete_selection(Model model){       
         prods = (ArrayList)pda.selectProducts(0, "");
         model.addAttribute("products", prods); //showing all objects in database that are deletable
-        return "/deleting_templates/delete_product_info";
+        return "/listing_templates/list_all_products";
     }
 
     //MAPPING FOR SELECTED OBJECT
@@ -75,7 +75,7 @@ public class controller {
             message = "YOU'RE A DISAPPOINTMENT!";
         }
         model.addAttribute("message", message);
-        return "/deleting_templates/delete_outcome";
+        return "/listing_templates/deleting_templates/delete_outcome";
     }
 
 
@@ -84,11 +84,12 @@ public class controller {
     public String update_select(Model model){
         ArrayList<Product> prods = new ArrayList<>();        
         //TODO: add code to SELECT ALL FROM DATABASE that are editable
+
         model.addAttribute("Prodcuts", prods); //showing all objects in database that are deletable        
         return "list_of_courses";
     }
     @GetMapping("/update_product_info/{id}")
-    public String update_info_form(Model model, @PathVariable("id") String id){
+    public String update_info_form(Model model, @PathVariable("id") int id){
         Product prod = new Product(); //TODO: CHANGE THIS TO GET STATEMENT RETURN VALUE(Product)
         model.addAttribute("prod", prod);//added for form binding
         return "update_product_info";
