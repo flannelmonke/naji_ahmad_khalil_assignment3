@@ -1,12 +1,14 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.model;
 
 public class Product {
+    private int id;
     private int product_code;
     private String brand;
     private int quantity;
     private float unit_price;
-     public Product() {
-     }
+    
+    public Product() {}
+    
     public int getProduct_code() {
         return product_code;
     }
@@ -30,6 +32,18 @@ public class Product {
     }
     public void setUnit_price(float unit_price) {
         this.unit_price = unit_price;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", product_code=" + product_code + ", brand=" + brand + ", quantity=" + quantity
+                + ", unit_price=" + unit_price + "]";
     }
 
      

@@ -32,7 +32,7 @@ public class DatabaseAccess {
     public List<Product> selectProducts(int threshhold, String brand) {
         MapSqlParameterSource namedParameters =
         new MapSqlParameterSource();
-        String query = "SELECT * FROM products";
+        String query = "SELECT * FROM product_catalog";
         if(threshhold != 0){
             query = "SELECT * FROM product_catalog WHERE quantity >= "+threshhold;
         }else if(brand != ""){
@@ -43,4 +43,16 @@ public class DatabaseAccess {
         BeanPropertyRowMapper<Product>(Product.class));
         return products_list;
     }
+
+    //delete method
+    public long deleteProduct(int id){
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        String query ="DELETE FROM product_catalog WHERE id = :id";
+        
+        namedParameters.addValue("id", id);
+        long rows_affected = jdbc.update(query, namedParameters);
+
+        return rows_affected;
+    }
+    
 }

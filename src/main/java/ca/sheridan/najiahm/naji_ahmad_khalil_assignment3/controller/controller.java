@@ -1,7 +1,6 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class controller {
     @Autowired
     private DatabaseAccess pda;
-
+    public ArrayList<Product> prods = new ArrayList<>();
     @GetMapping(value="/index")//route to index
     public String index() {
         return "/index";
@@ -49,28 +48,36 @@ public class controller {
 
 
     //DELETING ROUTING
-    @GetMapping("delect_product_info")
-    public String delete_selection(Model model){
-        ArrayList<Product> prods = new ArrayList<>();        
-        //TODO: add code to SELECT ALL FROM DATABASE that are deletable
-        model.addAttribute("Prodcuts", prods); //showing all objects in database that are deletable
-        return "delete_product_info";
+    @GetMapping("/delete_product_info")
+    public String delete_selection(Model model){       
+        prods = (ArrayList)pda.selectProducts(0, "");
+        model.addAttribute("products", prods); //showing all objects in database that are deletable
+        return "/deleting_templates/delete_product_info";
     }
 
     //MAPPING FOR SELECTED OBJECT
     @GetMapping("/delete_product_info/{id}")
     @ResponseBody
-    public String delete_confirm(Model model, @PathVariable("id") String id){
+    public String delete_confirm(Model model, @PathVariable("id") int id){
         String message = "Are you sure you want to delete product with ID: " + id; //requesting confirmation from user
-        model.addAttribute("message", message);
-        return "";
+        String button = "<br/><a href='/delete_product_confirmation/"+id+"'><button>Confirm</button></a>";
+        model.addAttribute("id", id);
+        return message+button;
     }
     //MAPPING FOR WHEN CONFIRM BUTTON IS PRESSED
-    @GetMapping("/delete_product_confirmation")
-    public String delete_outcome(){
-        //TODO: ADD DELETING FUNCTION FOR SPECIFIED ID
-        return "delete_product_confirmation";
+    @GetMapping("/delete_product_confirmation/{id}")
+    public String delete_outcome(@PathVariable("id") int id, Model model){
+        long outcome = pda.deleteProduct(id);
+        String message;
+        if(outcome>0){
+            message = "AWESOME SAUCE!";
+        }else{
+            message = "YOU'RE A DISAPPOINTMENT!";
+        }
+        model.addAttribute("message", message);
+        return "/deleting_templates/delete_outcome";
     }
+
 
     //EDITING PAGES
     @GetMapping("list_of_products")
