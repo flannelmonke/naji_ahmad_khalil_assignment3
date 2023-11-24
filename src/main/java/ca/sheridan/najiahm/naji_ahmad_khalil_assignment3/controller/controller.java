@@ -3,12 +3,15 @@ package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.dao.DatabaseAccess;
 import ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.model.Product;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,21 +19,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class controller {
+    @Autowired
+    private DatabaseAccess pda;
+
     @GetMapping(value="/index")//route to index
     public String index() {
         return "/index";
     }
     
     //ADDING ROUTERS
-    @GetMapping("insert_product")//add to model for form binding, then route user to insert_product_input.html
+    @GetMapping("/adding_templates/insert_product")//add to model for form binding, then route user to insert_product_input.html
     public String insert_prod(Model model){
         model.addAttribute("product", new Product());
-        return "insert_product_input";
+        return "/adding_templates/insert_product_input";
     }
     @GetMapping("/insert_outcome")
-    public String insert_outcome(){
-        // TODO: database access code
-        return "insert_outcome";
+    public String insert_outcome(@ModelAttribute Product product, Model model){
+        
+        String message;
+        long number_of_rows = pda.addProducts(product);
+        if(number_of_rows > 0){
+            message = "AWESOME SAUCE!";
+        }else{
+            message = "OH MY, OH MY, OH MY";
+        }
+        model.addAttribute("message", message);
+        return "/adding_templates/insert_outcome";
     }
 
 
@@ -59,7 +73,7 @@ public class controller {
     }
 
     //EDITING PAGES
-    @GetMapping("list_of_courses")
+    @GetMapping("list_of_products")
     public String update_select(Model model){
         ArrayList<Product> prods = new ArrayList<>();        
         //TODO: add code to SELECT ALL FROM DATABASE that are editable
