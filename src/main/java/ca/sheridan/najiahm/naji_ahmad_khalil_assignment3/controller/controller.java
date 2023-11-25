@@ -1,6 +1,7 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class controller {
     @Autowired
     private DatabaseAccess pda;
     public ArrayList<Product> prods = new ArrayList<>();
+
 
     @GetMapping(value = "/index") // route to index
     public String index() {

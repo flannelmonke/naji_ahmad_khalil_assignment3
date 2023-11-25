@@ -18,7 +18,7 @@ public class DatabaseAccess {
     //add product to db method
     public long addProducts(Product prod) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        String insert= "INSERT INTO product_catalog (product_code, product_brand, unit_price, quantity) VALUES (:product_code, :product_brand, :price, :quantity);";
+        String insert= "INSERT INTO product_catalog (product_code, brand, unit_price, quantity) VALUES (:product_code, :product_brand, :price, :quantity);";
         
         namedParameters.addValue("product_code", prod.getProduct_code());
         namedParameters.addValue("product_brand", prod.getBrand());
