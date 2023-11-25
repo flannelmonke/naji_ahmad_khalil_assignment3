@@ -8,5 +8,7 @@
 <body>
     <h3 th:text="${message}"></h3>
     <a href="/delete_prodcut_confirmation/${}"><button>Confirm</button></a>    
+    <div th:replace="/fragments/general.html :: footer"> </div>
+
 </body>
 </html>

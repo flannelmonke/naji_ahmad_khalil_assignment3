@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p th:text="${message}"></p><br>
+    <p></p>
+
+    <div th:replace="/fragments/general.html :: footer"> </div>
+
 </body>
 </html>

@@ -21,7 +21,9 @@
             <td th:text="${prod.quantity}"></td>
             <td th:text="${prod.unit_price}"></td>
             <td><a th:href="@{/delete_product_info/}+${prod.getId()}">DELETE?</a></td>
+            <td><a th:href="@{/update_product_info/}+${prod.getId()}">EDIT!!</a></td>
         </tr>
     </table>
+    <div th:replace="/fragments/general.html :: footer"> </div>
 </body>
 </html>
