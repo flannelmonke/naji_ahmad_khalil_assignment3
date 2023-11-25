@@ -1,6 +1,5 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ public class DatabaseAccess {
         namedParameters.addValue("price", prod.getUnit_price());
         namedParameters.addValue("quantity", prod.getQuantity());
         int rowsAffected = jdbc.update(insert, namedParameters);
-        
         return rowsAffected;
     }
     //select all method
@@ -34,9 +32,12 @@ public class DatabaseAccess {
         new MapSqlParameterSource();
         String query = "SELECT * FROM product_catalog";
         if(threshhold != 0){
-            query = "SELECT * FROM product_catalog WHERE quantity >= "+threshhold;
+            query = "SELECT * FROM product_catalog WHERE quantity > :threshhold";
+            namedParameters.addValue("threshhold", threshhold);
+            System.out.println(query);
         }else if(brand != ""){
-            query = "SELECT * FROM product_catalog WHERE product_brand IS '" + brand+"'";
+            query = "SELECT * FROM product_catalog WHERE brand = :brand";
+            namedParameters.addValue("brand", brand);
         }
         List<Product> products_list = jdbc.query(query,
         namedParameters, new

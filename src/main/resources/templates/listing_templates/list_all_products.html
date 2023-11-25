@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of deletable products</title>
+    <div th:replace="/fragments/general.html :: styles"></div>
 </head>
 <body>
+    <p>WANT TO PERFORM A SEARCH? GO AHEAD ->
+        <input type="text" id="search">
+        <a href="" id="anchor" ><button type="button" onclick="btn()">APPLY FILTERS</button></a>
+    </p>
     <table>
         <tr>
             <th>PRODUCT ID</th>
@@ -17,7 +22,7 @@
         <tr th:each="prod:${products}">
             <td th:text="${prod.id}"></td>
             <td th:text="${prod.product_code}"></td>
-            <td th:tex="${prod.brand}"></td>
+            <td th:text="${prod.brand}"></td>
             <td th:text="${prod.quantity}"></td>
             <td th:text="${prod.unit_price}"></td>
             <td><a th:href="@{/delete_product_info/}+${prod.getId()}">DELETE?</a></td>
@@ -26,4 +31,9 @@
     </table>
     <div th:replace="/fragments/general.html :: footer"> </div>
 </body>
+<script>
+    function btn(){
+        document.getElementById("anchor").href = "/apply_filters/"+document.getElementById("search").value;
+    }
+</script>
 </html>

@@ -1,7 +1,6 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.dao.DatabaseAccess;
 import ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.model.Product;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class controller {
@@ -51,7 +50,7 @@ public class controller {
     }
 
     // DELETING ROUTING
-    @GetMapping("/delete_product_info")
+    @GetMapping("/list_products")
     public String delete_selection(Model model) {
         prods = (ArrayList) pda.selectProducts(0, "");
         model.addAttribute("products", prods); // showing all objects in database that are deletable
@@ -85,11 +84,11 @@ public class controller {
     // EDITING PAGES
     /*
      * I used our handy array list here since we know the instance the user clicked
-     * on is apart of the list we used to diplay on the page
+     * on to edit is apart of the list we used to diplay on the page
      * therefore avoiding having to make 3 requests to the Database to update one
      * instance, we only need to make two requests.
      * One of those requests in fact serves the purpose of providing access to both
-     * deleting and editing.
+     * deleting and editing rows.
      */
     @GetMapping("/update_product_info/{id}")
     public String update_info_form(Model model, @PathVariable("id") int id) {
@@ -123,24 +122,34 @@ public class controller {
         return "select_brand";
     }
 
-    @GetMapping(value = "/list_by_brand")
-    public String banding101() {
+    // @GetMapping(value = "/list_by_brand")
+    // public String banding101() {
 
-        return "list_by_brand";
-    }
+    //     return "list_by_brand";
+    // }
 
     // LIST QUANTITIES
-    @GetMapping("select_by_quantity")
-    public String display_then_filter(Model model) {
+    @GetMapping("/apply_filters/{filter}")
+    public String display_then_filter(Model model, @PathVariable("filter") String filter) {
         ArrayList<Product> prods = new ArrayList<>();
-        // TODO: ADD SELECT QUERY TO RETURN ALL PRODUCTS UNTIL FILTER IS APPLIED
-        model.addAttribute("prods", prods);
-        return "select_by_quantity";
+        int inp=0;
+        try{
+            inp = Integer.parseInt(filter);
+            filter = "poopAE";
+            System.out.println(filter);
+            System.out.println(inp);
+            prods = (ArrayList)pda.selectProducts(inp, filter);
+            model.addAttribute("products", prods);
+        }catch(Exception e){
+            prods = (ArrayList)pda.selectProducts(inp, filter);
+            model.addAttribute("products", prods);
+        }
+        return "/listing_templates/list_all_products";
     }
 
-    @GetMapping("/select_by_quantity/{min}")
-    public String display_filtered(@RequestParam ArrayList<Product> prods) {
-        // TODO: IMPLEMENT LOGIC FOR FILTERING BY MINIMUM, MAYBE JUST IMPLEMENT IN JS?
-        return "";
-    }
+    // @GetMapping("/select_by_quantity/{min}")
+    // public String display_filtered(@RequestParam ArrayList<Product> prods) {
+    //     // TODO: IMPLEMENT LOGIC FOR FILTERING BY MINIMUM, MAYBE JUST IMPLEMENT IN JS?
+    //     return "";
+    // }
 }
