@@ -8,9 +8,12 @@
 <body>
     <p>HELLO and welcome to super awesome sauce website coded by Ahmhad-Khalil Naji</p>
     <br><p>CLICK <a href="/adding_templates/insert_product">HERE</a> TO ADD A PRODUCT TO DATABASE!</p>
-    <br><p>CLICK <a href="/list_products">HERE</a> TO DELETE A PRODUCT, EDIT A PRODUCT AND/OR SEARCH THROUGH THE DATABASE</p>
-    <!-- <br><p>CLICK <a href="/listing_templates/select_brand">HERE</a> TO LIST ALL PRODCUTS BY SPECIFIC BRANDS</p> -->
-    <!-- <br><p>CLICK <a href="/listing_templates/select_by_quantity">HERE </a>TO LIST ALL PRODUCTS BY A SPECIFIC QUANTITY</p> -->
+    <br><p>CLICK <a href="/list_products">HERE</a> TO LIST ALL PRODUCTS <br>
+    NOTE: New features implemented on Nov 24th 2023. Such as deleting rows, editing rows. <br>
+    Most importantly! Filters. You can now filter by quantity and brand. <br>
+    
+    Disclaimer, filter tool bar may susceptible to XSS. This problem will be addressed when I'm allowed to use stuff learned outside of class for my assignments.
+    or whenever we finish our module on security in Spring Boot. Whichever comes first.</p>
     <div th:replace="/fragments/general.html :: footer"> </div>
 </body>
 </html>

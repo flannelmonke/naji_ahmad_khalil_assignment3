@@ -51,7 +51,7 @@ public class controller {
 
     // DELETING ROUTING
     @GetMapping("/list_products")
-    public String delete_selection(Model model) {
+    public String list_all(Model model) {
         prods = (ArrayList) pda.selectProducts(0, "");
         model.addAttribute("products", prods); // showing all objects in database that are deletable
         return "/listing_templates/list_all_products";
@@ -91,8 +91,8 @@ public class controller {
      * deleting and editing rows.
      */
     @GetMapping("/update_product_info/{id}")
-    public String update_info_form(Model model, @PathVariable("id") int id) {
-        Product prod = prods.get(id);
+    public String update_info_form(Model model, @PathVariable("id") int id, @ModelAttribute ArrayList<Product> products) {
+        Product prod = prods.get(id-1);
         model.addAttribute("prod", prod);// added for form binding
         return "/listing_templates/editing_templates/update_product_info";
     }
@@ -103,30 +103,13 @@ public class controller {
                                                // database to update instance
         String message;
         if (result > 0) {
-            message = "AWESOME SAUCE";
+            message = "AWESOME SAUCE. Successfully updated product with ID: " + id;
         } else {
             message = "WAH WAH";
         }
         model.addAttribute("message", message);
         return "/listing_templates/editing_templates/update_outcome";
     }
-
-    // LISTING PAGES OH MY GOODNESS IT DOESN'T STOP SEND HELP!!!
-
-    // LISTING BRANDS
-    @GetMapping("select_brand")
-    public String brand_picker(Model model) {
-        ArrayList<Product> brands = new ArrayList<>();
-        // TODO: ADD SELECT FUNCTION THAT ADDS ALL UNIQUE BRANDS TO PAGE
-        model.addAttribute("brands", brands);
-        return "select_brand";
-    }
-
-    // @GetMapping(value = "/list_by_brand")
-    // public String banding101() {
-
-    //     return "list_by_brand";
-    // }
 
     // LIST QUANTITIES
     @GetMapping("/apply_filters/{filter}")
@@ -135,9 +118,7 @@ public class controller {
         int inp=0;
         try{
             inp = Integer.parseInt(filter);
-            filter = "poopAE";
-            System.out.println(filter);
-            System.out.println(inp);
+            filter = "";
             prods = (ArrayList)pda.selectProducts(inp, filter);
             model.addAttribute("products", prods);
         }catch(Exception e){
@@ -147,9 +128,12 @@ public class controller {
         return "/listing_templates/list_all_products";
     }
 
-    // @GetMapping("/select_by_quantity/{min}")
-    // public String display_filtered(@RequestParam ArrayList<Product> prods) {
-    //     // TODO: IMPLEMENT LOGIC FOR FILTERING BY MINIMUM, MAYBE JUST IMPLEMENT IN JS?
-    //     return "";
-    // }
+    //declaring a fallback route for if user did not input any filters
+    @GetMapping("/applyfilters/")
+    public String empty_filter(Model model){
+        prods = (ArrayList) pda.selectProducts(0, "");
+        model.addAttribute("products", prods); // showing all objects in database that are deletable
+        return "/listing_templates/list_all_products";
+    }
+
 }

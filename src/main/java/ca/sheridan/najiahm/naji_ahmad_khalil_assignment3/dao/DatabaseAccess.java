@@ -23,7 +23,9 @@ public class DatabaseAccess {
         namedParameters.addValue("product_brand", prod.getBrand());
         namedParameters.addValue("price", prod.getUnit_price());
         namedParameters.addValue("quantity", prod.getQuantity());
+        
         int rowsAffected = jdbc.update(insert, namedParameters);
+        
         return rowsAffected;
     }
     //select all method
@@ -61,11 +63,13 @@ public class DatabaseAccess {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         
         String query = "UPDATE product_catalog SET id = :id, product_code = :code , brand = :brand , quantity = :quantity , unit_price = :price WHERE id = :id";
+        
         namedParameters.addValue("id", id);
         namedParameters.addValue("code", prod.getProduct_code());
         namedParameters.addValue("brand", prod.getBrand());
         namedParameters.addValue("quantity", prod.getQuantity());
         namedParameters.addValue("price", prod.getUnit_price());        
+        
         long rows_affected = jdbc.update(query, namedParameters);
 
         return rows_affected;
