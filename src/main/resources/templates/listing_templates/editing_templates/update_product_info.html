@@ -6,7 +6,7 @@
     <title>update prodcut info</title>
 </head>
 <body>
-    <form action="#" th:action="@{/update_outcome/}+${prod.id}" th:object="${prod}" method="GET">
+    <form action="#" th:action="@{/update_outcome/}+${prod.getId()}" th:object="${prod}" method="GET">
         <p>Product id: <span th:text="*{id}"></span></p><br>
         <p>Product code: <input type="text" th:field="*{product_code}"></p><br>
         <p>Brand<input type="text" th:field="*{brand}"></p><br>

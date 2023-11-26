@@ -1,6 +1,8 @@
 package ca.sheridan.najiahm.naji_ahmad_khalil_assignment3.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +93,7 @@ public class controller {
      * deleting and editing rows.
      */
     @GetMapping("/update_product_info/{id}")
-    public String update_info_form(Model model, @PathVariable("id") int id, @ModelAttribute ArrayList<Product> products) {
+    public String update_info_form(Model model, @PathVariable("id") int id) {
         Product prod = prods.get(id-1);
         model.addAttribute("prod", prod);// added for form binding
         return "/listing_templates/editing_templates/update_product_info";

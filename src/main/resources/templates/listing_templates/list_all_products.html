@@ -19,14 +19,15 @@
             <th>quantity in hand</th>
             <th>unit price</th>
         </tr>
-        <tr th:each="prod:${products}">
+        <tr th:each="prod, iterStat:${products}">
+            <td th:text="${iterStat.count}"></td>
             <td th:text="${prod.id}"></td>
             <td th:text="${prod.product_code}"></td>
             <td th:text="${prod.brand}"></td>
             <td th:text="${prod.quantity}"></td>
             <td th:text="${prod.unit_price}"></td>
             <td><a th:href="@{/delete_product_info/}+${prod.getId()}">DELETE?</a></td>
-            <td><a th:href="@{/update_product_info/}+${prod.getId()}">EDIT!!</a></td>
+            <td><a th:href="@{/update_product_info/}+${iterStat.count}">EDIT!!</a></td>
         </tr>
     </table>
     <div th:replace="/fragments/general.html :: footer"> </div>
