@@ -129,7 +129,7 @@ public class controller {
     }
 
     //declaring a fallback route for if user did not input any filters
-    @GetMapping("/applyfilters/")
+    @GetMapping("/apply_filters/")
     public String empty_filter(Model model){
         prods = (ArrayList) pda.selectProducts(0, "");
         model.addAttribute("products", prods); // showing all objects in database that are deletable
