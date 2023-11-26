@@ -20,7 +20,7 @@
             <th>unit price</th>
         </tr>
         <tr th:each="prod, iterStat:${products}">
-            <td th:text="${iterStat.count}"></td>
+            <td hidden th:text="${iterStat.count}"></td>
             <td th:text="${prod.id}"></td>
             <td th:text="${prod.product_code}"></td>
             <td th:text="${prod.brand}"></td>
